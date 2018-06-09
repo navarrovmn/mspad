@@ -11,7 +11,7 @@ class Folder(models.Model):
     """
 
     name = models.CharField(max_length=50)
-    relates_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    relates_to = models.ForeignKey('self', related_name="folders", on_delete=models.CASCADE, null=True)
 
 #@rest_api()
 class File(models.Model):
@@ -24,4 +24,4 @@ class File(models.Model):
     url = models.CharField(max_length=140)
     lock = models.BooleanField(default=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
+    ext = models.CharField(max_length=10)

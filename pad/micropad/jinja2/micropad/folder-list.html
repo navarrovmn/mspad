@@ -1,6 +1,15 @@
-{% extends 'base.html' %}
+<link rel="stylesheet" href="/static/css/main.css">
 
-{% block body %}
-    <h1>Files</h1>
-    {{ super() }}
-{% endblock %}
+<div id="menu-div">
+    <ul id="menu">
+        {% for f in folder.folders.iterator() %}
+            <li><a href="http://localhost:8000/{{path}}{{f.name}}">{{ f.name }}</a></li>
+        {% endfor %}
+
+        {% for f in folder.files.iterator() %}
+            <li>
+                <a href="http://localhost:8000/{{path}}{{f.name}}{{f.ext}}">{{ f.name }}{{ f.ext }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
