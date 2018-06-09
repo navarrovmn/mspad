@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from .models import *
+from .rules import *
 
 
 def home(request):
@@ -30,7 +32,8 @@ def editor(request, path, name, ext):
         archive = File.objects.create(text="", name=name, url=path+name+ext, folder=Folder.objects.get(name=last_father), ext=ext)
 
     ctx = {
-        'archive': archive
+        'archive': archive,
+        'perm': not can_edit_page(request.user, archive),
     }
 
     return render(request, 'micropad/editor.html', ctx)
@@ -63,17 +66,25 @@ def folder_list(request, path):
 
 
 def lock(request, path, name, ext):
-    mfile = _set_page_lock(name, True)
-    return redirect('/' + mfile.url)
+    mfile = File.objects.get(name=name)
+    if is_page_owner(request.user, mfile):
+        mfile = _set_page_lock(mfile, True)
+        mfile.save()
+        return redirect('/' + mfile.url)
+    return Http404    
+
 
 def unlock(request, path, name, ext):
-    mfile = _set_page_lock(name, False)
-    return redirect('/' + mfile.url)
+    mfile = File.objects.get(name=name)
+    if is_page_owner(request.user, mfile):
+        mfile = _set_page_lock(mfile, False)
+        mfile.owner_name = None
+        mfile.save()
+        return redirect('/' + mfile.url)
+    return Http404
 
-def _set_page_lock(page_name, boolean):
-    mfile = File.objects.get(name=page_name)
+
+def _set_page_lock(mfile, boolean):
     mfile.lock = boolean
-    mfile.save()
-
     return mfile
     

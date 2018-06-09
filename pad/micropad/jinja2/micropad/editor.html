@@ -26,12 +26,12 @@
         var editor = monaco.editor.create(document.getElementById('container'), {
             value: code,
             language: languageMap[extension],
+            readOnly: {{perm|lower}},
         });
 
 
 
         function save() {
-
             (async () => {
                 console.log('Enviei')
                 // console.log(editor.getValue().toString())
