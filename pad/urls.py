@@ -3,6 +3,7 @@ from django.urls import path, re_path as url, include
 from django.conf import settings
 from boogie.rest import rest_api
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(rest_api.urls)),

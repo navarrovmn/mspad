@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     
     # External
     'rest_framework',
+    'rules',
     
     # Django apps
     'django.contrib.admin',
@@ -45,6 +46,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 ROOT_URLCONF = 'pad.urls'
 
@@ -124,3 +130,6 @@ STATIC_URL = '/static/'
 
 
 INTERNAL_IPS = ['127.0.0.1']
+
+# Django login
+LOGIN_REDIRECT_URL = '/'
