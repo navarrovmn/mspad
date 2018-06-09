@@ -16,7 +16,7 @@ class File(models.Model):
     """
     Represents a file.
     """
-    folder = models.ForeignKey(Folder, related_name="files", on_delete=models.CASCADE)
+    folder = models.ForeignKey(Folder, related_name="files", on_delete=models.CASCADE, null=True)
     text = models.TextField()
     name = models.CharField(max_length=50)
     url = models.CharField(max_length=140)
