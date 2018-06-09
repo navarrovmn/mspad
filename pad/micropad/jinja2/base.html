@@ -13,9 +13,11 @@
 
     <body>
         <header>
-            <a href="/"><h1>MSPad - Plutão já foi Planeta </h1></a>
-            <a class="Button" href="/profile"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/118/118781.svg"></img></a>
-            <a class="Button" href="/lock">lock page</a>
+            <a id="logo" href="/"><h1>MSPad - Pluto</h1></a>
+            <ul id="nav">
+                <li><a class="Button" href="/lock"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/26/26053.svg"></img></a></li>
+                <li><a class="Button" href="/profile"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/118/118781.svg"></img></a></li>
+            </ul>
         </header>
         {% block content %}
         {% endblock %}
