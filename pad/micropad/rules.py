@@ -2,9 +2,14 @@ import rules
 
 
 @rules.predicate
-def is_page_owner(user, page):
-    return user == page.owner
-
+def is_page_owner(user, archive):
+    if archive.owner:
+        return user == archive.owner
+    else:
+        archive.owner = user
+        archive.save()
+        return True
+        
 
 @rules.predicate
 def page_is_locked(page):
@@ -13,8 +18,8 @@ def page_is_locked(page):
 
 #@TODO create rule logic
 @rules.predicate
-def is_editor(user, page):
-    return True
+def is_editor(user, archive):
+    return is_page_owner(user, archive)
 
 @rules.predicate
 def can_edit_page(user, page):
@@ -27,3 +32,4 @@ def can_edit_page(user, page):
         return True
 
 rules.add_rule('can_edit_page', can_edit_page)
+rules.add_rule('is_page_owner', is_page_owner)

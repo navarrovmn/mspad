@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+
 
 def home(request):
     ctx={}
@@ -41,3 +42,20 @@ def folder_list(request, path):
     }
 
     return render(request, 'micropad/folder-list.html', ctx)
+
+
+def lock(request, path, name, ext):
+    mfile = _set_page_lock(name, True)
+    return redirect('/' + mfile.url)
+
+def unlock(request, path, name, ext):
+    mfile = _set_page_lock(name, False)
+    return redirect('/' + mfile.url)
+
+def _set_page_lock(page_name, boolean):
+    mfile = File.objects.get(name=page_name)
+    mfile.lock = boolean
+    mfile.save()
+
+    return mfile
+    
