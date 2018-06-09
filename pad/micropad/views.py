@@ -78,7 +78,7 @@ def unlock(request, path, name, ext):
     mfile = File.objects.get(name=name)
     if is_page_owner(request.user, mfile):
         mfile = _set_page_lock(mfile, False)
-        mfile.owner = None
+        mfile.owner_name = None
         mfile.save()
         return redirect('/' + mfile.url)
     return Http404
