@@ -40,3 +40,15 @@ header{
 #nav > li{
     margin-right: 25px;
 }
+
+
+#menu-div {
+    width: 10vw;
+    height: 100vh;
+    background-color: #f3f3f3;
+    box-shadow: 1px 0px 0px 0px #41464d;
+}
+
+ul {
+    list-style-type: none;
+}
