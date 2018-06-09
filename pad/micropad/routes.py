@@ -7,5 +7,10 @@ urlpatterns = Router()
 def home(request):
     ctx={}
     print("Home")
+    print("Home")
+    print("Home")
+    print("Home")
+    print("Home")
+    print("Home")
     return render(request, 'home.html',ctx)
 
