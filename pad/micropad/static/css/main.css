@@ -8,21 +8,33 @@ body {
 }
 
 #logo {
+
 }
 a{
     text-decoration: none;
+}
+img{
+    width: 20;
+    height: 20;
 }
 header{
     text-decoration: none;
     flex-wrap: nowrap;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 3px -1px 10px 0px rgba(0, 0, 0, 0.5);
+    background:white;
+    
 }
 #nav{
-    list-style-type: none;
     display:flex;
-    justify-content: flex-end
+    list-style-type: none;
+    justify-content: flex-end;
 }
 
 #nav > li{
