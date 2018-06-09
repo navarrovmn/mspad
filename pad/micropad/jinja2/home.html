@@ -2,12 +2,32 @@
 
 
 {% block content %}
-    {{super()}}
-    <p>
-        Bem vindo ao MSPad <br /><br />
-        Acesse uma url e comece a editar um arquivo<br /><br />
-        Extensão da url irá ativar syntax highlighting da linguagem: /folder/file.py<br /><br />
-        Salvo automaticamente<br /><br />
-        Não se esqueça, você pode usar suaURL/suaPasta/suaSubPasta<br /><br />
-    </p>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <section id="Home-introduction">
+        <h1 id="Home-title">MSPAD</h1>
+        <p> 
+            www.mspad.com/ <input id="Home-input"></input>
+            <button onclick="redirectPage()">Vai!</button>
+        </p>
+        <div id="Home-container">
+            <ul id="Home-list">
+                <li>Acesse uma url e comece a editar um arquivo</li>
+                <li>A cada 1.5 segundos suas informações serão salvas automaticamente!</li>
+                <li>Extensão da url ativará a syntax highlighting da linguagem: /folder/file.py</li>
+                <li>Não se esqueça, você pode usar suaURL/suaPasta/suaSubPasta utilizando o padrão CamelCase</li>
+            </ul>
+        </div>
+        <script>
+            document.querySelector("#Home-input").addEventListener('keypress', function (e) {
+                var key = e.which || e.keyCode;
+                if (key === 13) {
+                    redirectPage()
+                }
+            });
+            function redirectPage(){
+                var page = document.getElementById("Home-input").value;
+                location.href = page;
+            }
+        </script>
+    </section>
 {% endblock %}
