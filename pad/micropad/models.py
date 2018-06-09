@@ -9,7 +9,7 @@ class Folder(models.Model):
     """
 
     name = models.CharField(max_length=50)
-    relates_to = models.ForeignKey('self', on_delete=models.CASCADE)
+    relates_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
 @rest_api()
 class File(models.Model):
