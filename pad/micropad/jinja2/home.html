@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {{super()}}
+    <p>
+        Bem vindo ao MSPad
+        Acesse uma url e comece a editar um arquivo
+        Extensão da url irá ativar syntax highlighting da linguagem: /folder/file.py
+        Salvo automaticamente
+        Não se esqueça, você pode usar suaURL/suaPasta/suaSubPasta
+    </p>
+{% endblock %}

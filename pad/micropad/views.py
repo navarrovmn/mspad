@@ -8,10 +8,12 @@ def editor(request, path, name, ext):
         'name': name,
         'extension': ext,
     }
+    print("EDITOR")
     return render(request, 'micropad/editor.html', ctx)
 
 def folder_list(request, path):
     ctx = {
         'path': path,
     }
+
     return render(request, 'micropad/folder-list.html', ctx)

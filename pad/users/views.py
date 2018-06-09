@@ -30,3 +30,12 @@ def signup(request):
         return render(request, 'users/signup.html', {'form': form})
     else:
         return render(request, 'users/signup.html', {'form': SignupForm()})
+
+def profile(request):
+    print("AAAAAAAAAAAAAAAA\n\n\n")
+
+    if(request.user.is_authenticated):
+        ctx = {'user': request.user}
+        return render(request, 'users/profile.html', ctx)
+    else:
+        return redirect('/login')

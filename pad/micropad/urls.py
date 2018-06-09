@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path, path, include
 from rest_framework.routers import DefaultRouter
 from boogie.rest import rest_api
 

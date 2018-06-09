@@ -1,38 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Micropad</title>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="/static/css/unpoly.css">
-    <script src="/static/js/jquery.js"></script>
-    <script src="/static/js/unpoly.js"></script>
-    <script src="/static/js/node_modules/monaco-editor/min/vs/loader.js"></script>
-    <script src="monaco-editor/min/vs/loader.js"></script>
-    <script src="/static/js/main.js"></script>
-</head>
+    <head>
+        <title>Micropad</title>
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/unpoly.css">
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/js/unpoly.js"></script>
+        <script src="/static/js/node_modules/monaco-editor/min/vs/loader.js"></script>
+        <script src="monaco-editor/min/vs/loader.js"></script>
+        <script src="/static/js/main.js"></script>
+    </head>
 
-<body>
-{% block body %}
-    {% if body is defined %}
-        {{ body | default('It worked!') }}
-    {% else %}
-        <div id="editor"></div>
-    {% endif %}
-{% endblock %}
-
-<script>
-    var editor;
-
-    require.config({ paths: { 'vs': 'static/js/node_modules/monaco-editor/min/vs' }});
-    require(['vs/editor/editor.main'], function() {
-        editor = monaco.editor.create(document.getElementById('editor'), {
-            value: (
-                'function x() {\n' +
-                '    console.log("Hello world!");\n' +
-                '}'
-            ),
-            language: 'javascript'
-        });
-    });</script>
-</body>
+    <body>
+        <header>
+            <a href="/"><h1>MSPad - Plutão já foi Planeta </h1></a>
+            <a class="Button" href="/profile"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/118/118781.svg"></img></a>
+            <a class="Button" href="/lock">lock page</a>
+        </header>
+        {% block content %}
+        {% endblock %}
+    </body>
 </html>
