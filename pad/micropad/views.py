@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+
 
 def home(request):
     ctx={}
@@ -41,3 +42,11 @@ def folder_list(request, path):
     }
 
     return render(request, 'micropad/folder-list.html', ctx)
+
+
+def lock(request, path, name, ext):
+    mfile = File.objects.get(name=name)
+    mfile.lock = True
+    mfile.save()
+
+    return redirect('/'+mfile.url)

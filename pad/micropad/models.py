@@ -20,3 +20,4 @@ class File(models.Model):
     text = models.TextField()
     name = models.CharField(max_length=50)
     url = models.CharField(max_length=140)
+    lock = models.BooleanField(default=False)
