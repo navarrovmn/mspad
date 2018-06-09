@@ -1,10 +1,14 @@
 body {
     font-family: monospace;
+    font-size: 1.3em;
 }
 
 #container {
     width: 98vw;
-    height: 100vh;
+    height: 51vw;
+}
+a:visited {
+    color: #222945;
 }
 
 #logo {
@@ -12,10 +16,6 @@ body {
 }
 a{
     text-decoration: none;
-}
-img{
-    width: 20;
-    height: 20;
 }
 header{
     text-decoration: none;
@@ -39,4 +39,27 @@ header{
 
 #nav > li{
     margin-right: 25px;
+}
+
+#Home-introduction {
+    text-align: center;
+    margin-top: 5%;
+}
+
+#Home-title{
+    font-size: 5em;
+}
+
+#Home-list {
+    list-style-type: none;
+    text-align: left;
+    font-size: 1.1em;
+}
+
+#Home-list li {
+    margin: 2vh 0px 0px 0px;
+}
+#Home-container {
+    margin: 5% auto;
+    width: 70%;
 }
