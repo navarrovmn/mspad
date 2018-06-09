@@ -3,6 +3,7 @@ import rules
 
 @rules.predicate
 def is_page_owner(user, archive):
+    print(user.__class__)
     if archive.owner:
         return user == archive.owner
     else:
