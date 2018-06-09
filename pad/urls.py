@@ -8,8 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(rest_api.urls)),
     path('', include('pad.users.urls')),
-    path('', include('pad.micropad.routes')),
-
     path('', include('pad.micropad.urls')),
 ]
 

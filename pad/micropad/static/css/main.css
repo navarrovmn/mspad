@@ -6,3 +6,25 @@ body {
     width: 98vw;
     height: 100vh;
 }
+
+#logo {
+}
+a{
+    text-decoration: none;
+}
+header{
+    text-decoration: none;
+    flex-wrap: nowrap;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+}
+#nav{
+    list-style-type: none;
+    display:flex;
+    justify-content: flex-end
+}
+
+#nav > li{
+    margin-right: 25px;
+}

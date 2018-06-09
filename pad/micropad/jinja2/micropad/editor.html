@@ -2,4 +2,52 @@
 
 {% block body %}
     {{ super() }}
+<script src="/static/node_modules/monaco-editor/dev/vs/loader.js"></script>
+<script>
+    let language = 'javascript'
+    let url = window.location.href
+    let extension = url.split(".")
+    extension = extension[extension.length - 1]
+
+    languageMap = {
+        js: 'javascript',
+        css: 'css',
+        coffee: 'coffescript',
+        py: 'python',
+        json: 'json',
+        html: 'html',
+        c: 'c',
+        rb: 'ruby',
+    }
+
+    var code = ('{{ archive.text.__repr__().replace("'","") }}')
+    require.config({ paths: { 'vs': '/static/node_modules/monaco-editor/min/vs' } });
+    require(['vs/editor/editor.main'], function () {
+        var editor = monaco.editor.create(document.getElementById('container'), {
+            value: code,
+            language: languageMap[extension],
+        });
+
+
+
+        function save() {
+
+            (async () => {
+                console.log('Enviei')
+                // console.log(editor.getValue().toString())
+                // console.log(typeof(editor.getValue().toString()))
+                const rawResponse = await fetch('http://localhost:8000/api/v1/files/{{ archive.id }}/', {
+                    method: 'PATCH',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: editor.getValue().toString() })
+                });
+                const content = await rawResponse.json();
+            })();
+        }
+        setInterval(save, 1500);
+    });
+</script>
 {% endblock %}

@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import *
 
+def home(request):
+    ctx={}
+    return render(request, 'home.html',ctx)
 
 def editor(request, path, name, ext):
     last_father = ""
