@@ -1,19 +1,5 @@
 {% extends 'base.html' %}
 
-{% block main %}
-    
-    <script>
-            var editor;
-        
-            require.config({ paths: { 'vs': 'static/js/node_modules/monaco-editor/min/vs' }});
-            require(['vs/editor/editor.main'], function() {
-                editor = monaco.editor.create(document.getElementById('editor'), {
-                    value: (
-                        'function x() {\n' +
-                        '    console.log("Hello world!");\n' +
-                        '}'
-                    ),
-                    language: 'javascript'
-                });
-            });</script>
+{% block body %}
+    {{ super() }}
 {% endblock %}
