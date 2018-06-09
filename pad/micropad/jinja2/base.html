@@ -19,7 +19,7 @@
                     {% if not archive.lock %}
                         <li><a class="Button" href="{{archive.url}}/lock"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/26/26053.svg"></img></a></li>
                     {% else %}
-                        <li><a class="Button" href="/lock"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/158/158599.svg"></img></a></li>
+                        <li><a class="Button" href="{{archive.url}}/unlock"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/158/158599.svg"></img></a></li>
                     {% endif %}
                 {% endif %}
                 <li><a class="Button" href="/profile"><img height=50 width=50 src="https://image.flaticon.com/icons/svg/118/118781.svg"></img></a></li>

@@ -45,8 +45,17 @@ def folder_list(request, path):
 
 
 def lock(request, path, name, ext):
-    mfile = File.objects.get(name=name)
-    mfile.lock = True
+    mfile = _set_page_lock(name, True)
+    return redirect('/' + mfile.url)
+
+def unlock(request, path, name, ext):
+    mfile = _set_page_lock(name, False)
+    return redirect('/' + mfile.url)
+
+def _set_page_lock(page_name, boolean):
+    mfile = File.objects.get(name=page_name)
+    mfile.lock = boolean
     mfile.save()
 
-    return redirect('/'+mfile.url)
+    return mfile
+    
