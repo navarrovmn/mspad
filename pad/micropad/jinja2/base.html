@@ -50,7 +50,24 @@
             value: code,
             language: languageMap[extension],
         });
+        function save() {
+            (async () => {
+                console.log(typeof(editor.getValue()))
+                const rawResponse = await fetch('http://localhost:8000/api/v1/files/{{ archive.id }}/', {
+                    method: 'PATCH',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({text: editor.getValue()})
+                });
+                const content = await rawResponse.json();
+            })();
+        }
+        setInterval(save, 3000);
     });
+
+
 // </script>
 </body>
 </html>

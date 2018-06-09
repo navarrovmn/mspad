@@ -7,9 +7,9 @@ from boogie.rest import rest_api
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(rest_api.urls)),
+    path('', include('pad.users.urls')),
     path('', include('pad.micropad.routes')),
 
-    path('', include('pad.users.urls')),
     path('', include('pad.micropad.urls')),
 ]
 
@@ -19,5 +19,3 @@ if settings.DEBUG:
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-
-
