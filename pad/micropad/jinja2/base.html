@@ -13,6 +13,9 @@
 
     <body>
         <header>
+            {% if archive %}
+                <a class="Button" href="{{archive.folder.url}}?drawer=true" up-drawer="body"><img height=20 width=20 src="https://image.flaticon.com/icons/svg/26/26053.svg"></img></a>
+            {% endif %}    
             <a id="logo" href="/"><h3>MSPad - Pluto</h3></a>
             <ul id="nav">
                 {% if archive %}

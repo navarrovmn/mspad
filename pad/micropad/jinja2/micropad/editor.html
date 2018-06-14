@@ -8,28 +8,14 @@
     let url = window.location.href
     let extension = url.split(".")
     extension = extension[extension.length - 1]
-
-    languageMap = {
-        js: 'javascript',
-        css: 'css',
-        coffee: 'coffescript',
-        py: 'python',
-        json: 'json',
-        html: 'html',
-        c: 'c',
-        rb: 'ruby',
-    }
-
     var code = ('{{ archive.text.__repr__().replace("'","") }}')
     require.config({ paths: { 'vs': '/static/node_modules/monaco-editor/min/vs' } });
     require(['vs/editor/editor.main'], function () {
         var editor = monaco.editor.create(document.getElementById('container'), {
             value: code,
-            language: languageMap[extension],
+            language: "{{ ext }}",
             readOnly: {{perm|lower}},
         });
-
-
 
         function save() {
             (async () => {
@@ -42,7 +28,9 @@
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ text: editor.getValue().toString() })
+                    body: JSON.stringify({ 
+                        text: editor.getValue().toString() 
+                    })
                 });
                 const content = await rawResponse.json();
             })();

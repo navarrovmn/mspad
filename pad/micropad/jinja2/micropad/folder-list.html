@@ -2,13 +2,13 @@
 
 <div id="menu-div">
     <ul id="menu">
-        {% for f in folder.folders.iterator() %}
-            <li><a href="http://localhost:8000/{{path}}{{f.name}}">{{ f.name }}</a></li>
+        {% for f in folder.children.iterator() %}
+            <li><a href="{{f.url}}">{{ f.name }}/</a></li>
         {% endfor %}
 
         {% for f in folder.files.iterator() %}
             <li>
-                <a href="http://localhost:8000/{{path}}{{f.name}}{{f.ext}}">{{ f.name }}{{ f.ext }}</a>
+                <a href="{{f.url_with_slash}}">{{ f.name }}{{ f.ext }}</a>
             </li>
         {% endfor %}
     </ul>

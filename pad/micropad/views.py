@@ -5,63 +5,28 @@ from .rules import *
 
 
 def home(request):
+    if request.GET.get("drawer") == "true":
+        return folder_list(request, '/')
     ctx={}
     return render(request, 'home.html',ctx)
 
+
 def editor(request, path, name, ext):
-    last_father = ""
-
-    if path is not None:
-        folders = path.split('/')
-        folders.pop()
-
-        for idx, folder in enumerate(folders):
-            try:
-                get_folder = Folder.objects.get(name=folder)
-            except Folder.DoesNotExist:
-                if idx==0:
-                    get_folder = Folder.objects.create(name=folder)
-                else:
-                    get_folder = Folder.objects.create(name=folder, relates_to=Folder.objects.get(name=last_father))
-
-            last_father = folder
-
-    try:
-        archive = File.objects.get(name=name)
-    except File.DoesNotExist:
-        archive = File.objects.create(text="", name=name, url=path+name+ext, folder=Folder.objects.get(name=last_father), ext=ext)
-
+    archive = get_file(path, name, ext)
+    print('sdifosifhsdi', ext)
     ctx = {
         'archive': archive,
         'perm': not can_edit_page(request.user, archive),
+        'ext': LANGUAGE_MAP.get(ext, 'text'),
     }
-
     return render(request, 'micropad/editor.html', ctx)
 
 
 def folder_list(request, path):
-    last_father = ""
-
-    if path is not None:
-        folders = path.split('/')
-        folders.pop()
-
-        for idx, folder in enumerate(folders):
-            try:
-                get_folder = Folder.objects.get(name=folder)
-            except Folder.DoesNotExist:
-                if idx==0:
-                    get_folder = Folder.objects.create(name=folder)
-                else:
-                    get_folder = Folder.objects.create(name=folder, relates_to=Folder.objects.get(name=last_father))
-
-            last_father = folder
-
     ctx = {
-        'folder': get_folder,
-        'path': path
+        'folder': get_folder(path),
+        'path': path,
     }
-
     return render(request, 'micropad/folder-list.html', ctx)
 
 
@@ -88,3 +53,78 @@ def _set_page_lock(mfile, boolean):
     mfile.lock = boolean
     return mfile
     
+
+def get_file(path, name, ext):
+    url = path + name + ext
+
+    try:
+        return File.objects.get(url=url)
+    except File.DoesNotExist:
+        pass
+
+    parent = get_folder(path)
+    archive, _ = File.objects.get_or_create(
+        text="", 
+        name=name, 
+        url=url, 
+        folder=parent,
+        ext=ext,
+    )
+    return archive
+
+
+def get_folder(path):
+    folder, _ = Folder.objects.get_or_create(name='/') 
+    for subpath in path.strip('/').split('/'):
+        folder, _ = Folder.objects.get_or_create(name=subpath, parent=folder)
+    return folder
+
+
+LANGUAGE_MAP = {
+    ".txt": "plaintext", 
+    ".ts": "type", 
+    ".js": "java", 
+    ".json": "json", 
+    ".bat": "bat", 
+    ".cs": "coffee", 
+    ".c": "c", 
+    ".cpp": "cpp", 
+    ".cs": "csharp", 
+    ".csp": "csp", 
+    ".css": "css", 
+    ".fs": "fsharp", 
+    ".go": "go", 
+    ".handlebars": "handlebars", 
+    ".html": "html", 
+    ".htm": "html", 
+    ".ini": "ini", 
+    ".java": "java", 
+    ".less": "less", 
+    ".lua": "lua", 
+    ".md": "markdown", 
+    ".msdax": "msdax", 
+    ".mysql": "mysql", 
+    ".objc": "objective-c", 
+    ".pgsql": "pgsql", 
+    ".php": "php", 
+    ".postiats": "postiats", 
+    ".powershell": "powershell", 
+    ".pug": "pug", 
+    ".py": "python", 
+    ".r": "r", 
+    ".razor": "razor", 
+    ".redis": "redis", 
+    ".redshift": "redshift", 
+    ".ruby": "ruby", 
+    ".rs": "rust", 
+    ".sb": "sb", 
+    ".scss": "scss", 
+    ".sol": "sol", 
+    ".sql": "sql", 
+    ".st": "st", 
+    ".swift": "swift", 
+    ".vb": "vb", 
+    ".xml": "xml", 
+    ".yaml": "yaml",
+    ".yml": "yaml",
+}
