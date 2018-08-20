@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+ postgres:
+  image: postgres:10
+  env_file:
+    - postgres.env
+
+ web:
+  build: .
+  depends_on:
+    - postgres
+  env_file:
+    - postgres.env
+    - django.env
+  volumes:
+    - media:/app/collect/
+  command: "/app/runserver.sh"
+
+ nginx:
+  image: ejplatform/nginx:latest
+  volumes:
+   - media:/usr/share/nginx/html/
+  links:
+    - web:web
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity: ${affinity_host}
+  depends_on:
+    - web
+  ports:
+    - "80:80"
+
+volumes:
+  media:

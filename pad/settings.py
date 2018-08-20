@@ -11,9 +11,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9*b5#9tag%s9awb-k24_mq2$c8j!a6zy8ro5f)tn6&cj$s1-ot'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -21,11 +21,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'pad.micropad',
     'pad.users',
-    
+
     # External
     'rest_framework',
     'rules',
-    
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'pad.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': os.environ["POSTGRES_DB"],
+         'USER': os.environ["POSTGRES_USER"],
+         'PASSWORD': os.environ["POSTGRES_PASSWORD"],
+         'HOST': 'postgres',
+         'PORT': '',
     }
 }
 
@@ -127,6 +131,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collect')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'pad', 'micropad', 'static'),
+]
 
 
 INTERNAL_IPS = ['127.0.0.1']
